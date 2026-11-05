@@ -1,0 +1,29 @@
+kind: TestWorkflow
+apiVersion: testworkflows.testkube.io/v1
+metadata:
+  name: shop-api-tests
+  labels:
+    app: demo-shop
+spec:
+  config:
+    revision:
+      type: string
+      default: main
+      description: Branch, tag or commit to test
+  content:
+    git:
+      uri: https://github.com/devcatalin/a2a-demo-app
+      revision: "{{config.revision}}"
+      token: '{{credential("a2a-demo-app-token")}}'
+  container:
+    image: node:22-alpine
+    workingDir: /data/repo
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+  steps:
+    - name: Install dependencies
+      shell: npm ci --no-audit --no-fund
+    - name: Run the API tests
+      shell: npx jest --ci --verbose

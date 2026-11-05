@@ -1,0 +1,21 @@
+{
+  "name": "demo-shop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A tiny shop API: cart totals, sales and coupons",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest --ci --verbose"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
