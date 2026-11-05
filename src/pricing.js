@@ -6,15 +6,14 @@ const COUPONS = {
   SAVE20: 0.2,
 };
 
-/**
- * The price of one line: a sale and a coupon never stack on the same item;
- * the item gets whichever discount is larger.
- */
+const applyRate = (amount, rate) => amount * (1 - rate);
+
+/** The price of one line, with its discounts applied one after the other. */
 function linePrice(item, couponRate) {
-  const base = item.price * item.qty;
-  const saleRate = item.onSale ? SALE_RATE : 0;
-  const rate = Math.max(saleRate, couponRate);
-  return Math.round(base * (1 - rate));
+  let price = item.price * item.qty;
+  if (item.onSale) price = applyRate(price, SALE_RATE);
+  if (couponRate) price = applyRate(price, couponRate);
+  return Math.round(price);
 }
 
 function couponRate(code) {
