@@ -16,3 +16,5 @@ Tests run in **Testkube**, our test platform, not on this machine: there is no l
 - Then wait for the answer: `a2a task subscribe -o jsonl --timeout 5m -a "$TK_AGENT_URL" --auth "Bearer $TK_TOKEN" <task id>`
   (or poll `a2a task get` until the task is completed).
 - For a follow-up in the same Testkube chat, pass the same `--context-id`.
+- When Testkube reports failures: fix the code, commit, push the branch, and ask Shop QA to run the tests again in
+  the same chat (same `--context-id`), until they pass. Then summarise for the user what was wrong and what you changed.
